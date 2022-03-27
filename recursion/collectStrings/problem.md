@@ -1,0 +1,1 @@
+Write a function called collectStrings which accepts an object and returns numbersan array of all the valuess that have a typeof string
