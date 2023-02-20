@@ -68,6 +68,15 @@ class DoubleLinkedList:
         return None
     
     def delete_entire_ll(self):
+        if self.head is None:
+            return
+        
+        node = self.head
+        while node:
+            next_node = node.next
+            node.next = None
+            node.prev = None
+            node = next_node
         self.head = None
         self.tail = None
     
