@@ -1,6 +1,5 @@
 # Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x.
 
-# Return Kth to Last
 
 from random import randint
 
@@ -71,34 +70,90 @@ custom_linked_list.generate(10, 0, 20)
 
 print(custom_linked_list)
 
+
+# Solution #1
+
+# def partition(ll, x):
+#     new_head = None
+#     second_head = None
+
+#     previous_head = False
+#     previous_tail = False
+
+#     for node in ll:
+
+#         if node.value < x:
+#             if not previous_head:
+#                 previous_head = node
+#                 new_head = node
+#             else:
+#                 previous_head.next = node
+#                 previous_head = node
+#         else:
+#             if not previous_tail:
+#                 previous_tail = node
+#                 second_head = node
+#             else:
+#                 previous_tail.next = node
+#                 previous_tail = node
+
+#     ll.head = new_head
+#     previous_head.next = second_head
+#     previous_tail.next = None
+#     ll.tail = previous_tail
+
+
+# Solution #2
+# def partition(ll, x):
+#     dummy_head = Node(0)
+#     dummy_tail = Node(0)
+
+#     left = dummy_head
+#     right = dummy_tail
+
+#     for node in ll:
+
+#         if node.value < x:
+#             left.next = node
+#             left = node
+#         else:
+#             right.next = node
+#             right = node
+
+
+#     ll.head = dummy_head.next
+#     left.next = dummy_tail.next
+
+#     ll.tail = right
+#     right.next = None
+
+# partition(custom_linked_list, 10)
+
+# print(custom_linked_list)
+
+# solution 3
 def partition(ll, x):
-    new_head = None
-    second_head = None
+    node = ll.head
+    ll.tail = ll.head
 
-    previous_head = False
-    previous_tail = False
-
-    for node in ll:
+    while node:
+        next_node = node.next
+        node.next = None
 
         if node.value < x:
-            if not previous_head:
-                previous_head = node
-                new_head = node
-            else:
-                previous_head.next = node
-                previous_head = node
+            node.next = ll.head
+            ll.head = node
         else:
-            if not previous_tail:
-                previous_tail = node
-                second_head = node
-            else:
-                previous_tail.next = node
-                previous_tail = node
-    
-    ll.head = new_head
-    previous_head.next = second_head
-    previous_tail.next = None
-    ll.tail = previous_tail
+            ll.tail.next = node
+            ll.tail = node
+
+        # print(node.value)
+        node = next_node
+
+    ll.tail.next = None
+        # node.next = None
+
+        # node = next_node
 
 
 partition(custom_linked_list, 10)
