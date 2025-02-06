@@ -70,24 +70,67 @@ class LinkedList:
 
 
 custom_linked_list_1 = LinkedList()
-custom_linked_list_1.generate(10, 0, 9)
+custom_linked_list_1.generate(5, 1, 9)
 
 print(custom_linked_list_1)
 
 custom_linked_list_2 = LinkedList()
-custom_linked_list_2.generate(10, 0, 9)
+custom_linked_list_2.generate(3, 1, 9)
 
 print(custom_linked_list_2)
 
-sum_ll = int(str(custom_linked_list_1)) + int(str(custom_linked_list_2))
+sum_ll = int(str(custom_linked_list_1)[::-1]) + int(str(custom_linked_list_2)[::-1])
 
 print(f"sum: {sum_ll}")
 print("---------------------")
 
 
 # Solution #1
-def sum_list(ll_1, ll_2):
-    pass
+def sum_list(ll_a, ll_b):
+    node_a = ll_a.head
+    node_b = ll_b.head
+
+    residue = 0
+    sum_all = 0
+
+    units = []
+
+    sum_ll = LinkedList()
+
+    while node_a or node_b:
+
+        node_a_value = node_a.value if node_a else 0
+        node_b_value = node_b.value if node_b else 0
+
+        print(node_a_value, node_b_value)
+
+        sum_nodes = node_a_value + node_b_value + residue
+
+        residue = sum_nodes // 10
+        unit = sum_nodes % 10
+
+        units.append(unit)
+        sum_ll.add(unit)
+
+        node_a = node_a.next if node_a else None
+        node_b = node_b.next if node_b else None
+
+    if residue != 0:
+        units.append(residue)
+        sum_ll.add(residue)
+
+    print(units)
+
+    if unit == 0:
+        current_node = sum_ll.head
+        while current_node.next != sum_ll.tail:
+            current_node = current_node.next
+
+        current_node.next = None
+        sum_ll.tail = current_node
+
+    return sum_ll
+
 
 custom_linked_list_3 = sum_list(custom_linked_list_1, custom_linked_list_2)
 print(custom_linked_list_3)
