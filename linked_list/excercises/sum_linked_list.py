@@ -86,51 +86,77 @@ print("---------------------")
 
 
 # Solution #1
-def sum_list(ll_a, ll_b):
-    node_a = ll_a.head
-    node_b = ll_b.head
+# def sum_list(ll_a, ll_b):
+#     node_a = ll_a.head
+#     node_b = ll_b.head
 
-    residue = 0
-    sum_all = 0
+#     residue = 0
+#     sum_all = 0
 
-    units = []
+#     units = []
 
-    sum_ll = LinkedList()
+#     sum_ll = LinkedList()
 
-    while node_a or node_b:
+#     while node_a or node_b:
 
-        node_a_value = node_a.value if node_a else 0
-        node_b_value = node_b.value if node_b else 0
+#         node_a_value = node_a.value if node_a else 0
+#         node_b_value = node_b.value if node_b else 0
 
-        print(node_a_value, node_b_value)
+#         print(node_a_value, node_b_value)
 
-        sum_nodes = node_a_value + node_b_value + residue
+#         sum_nodes = node_a_value + node_b_value + residue
 
-        residue = sum_nodes // 10
-        unit = sum_nodes % 10
+#         residue = sum_nodes // 10
+#         unit = sum_nodes % 10
 
-        units.append(unit)
-        sum_ll.add(unit)
+#         units.append(unit)
+#         sum_ll.add(unit)
 
-        node_a = node_a.next if node_a else None
-        node_b = node_b.next if node_b else None
+#         node_a = node_a.next if node_a else None
+#         node_b = node_b.next if node_b else None
 
-    if residue != 0:
-        units.append(residue)
-        sum_ll.add(residue)
+#     if residue != 0:
+#         units.append(residue)
+#         sum_ll.add(residue)
 
-    print(units)
+#     print(units)
 
-    if unit == 0:
-        current_node = sum_ll.head
-        while current_node.next != sum_ll.tail:
-            current_node = current_node.next
+#     if unit == 0:
+#         current_node = sum_ll.head
+#         while current_node.next != sum_ll.tail:
+#             current_node = current_node.next
 
-        current_node.next = None
-        sum_ll.tail = current_node
+#         current_node.next = None
+#         sum_ll.tail = current_node
 
-    return sum_ll
+#     return sum_ll
 
+
+# custom_linked_list_3 = sum_list(custom_linked_list_1, custom_linked_list_2)
+# print(custom_linked_list_3)
+
+
+def sum_list(llA, llB):
+    n1 = llA.head
+    n2 = llB.head
+    carry = 0
+    ll = LinkedList()
+
+    while n1 or n2:
+        result = carry
+
+        if n1:
+            result += n1.value
+            n1 = n1.next
+
+        if n2:
+            result += n2.value
+            n2 = n2.next
+
+        ll.add(result % 10)
+        carry = result // 10
+    
+    return ll
 
 custom_linked_list_3 = sum_list(custom_linked_list_1, custom_linked_list_2)
 print(custom_linked_list_3)
